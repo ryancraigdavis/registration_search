@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Locations Near Me | Google Maps JavaScript API Demo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="allLocations.js"></script>
+  </head>
+  <body>
+    <div class="content">
+      <h1><img src="SA_Logo_White.png" />Conference Finder</h1>
+      <p class="disclaimer">Select an age group and radius, and then enter your address or a zip code to find conference locations near you!</p>
+
+      <form action="#" method="post">
+        <label for="maxRadius">Find locations within
+          <input name="maxRadius" id="maxRadius" type="number" value="10" min="1" />
+        </label>
+        <label for="userAddress"> miles of
+          <input name="userAddress" id="userAddress" type="text" placeholder="Your Address" value="10777 Santa Monica Blvd, Los Angeles, CA 90025"/>
+        </label>
+        <label for="ages">for ages in the range: </label>
+          <select id="ages">
+            <option value="6589-8050">18-25</option>
+            <option value="8051-9363">26-39</option>
+            <option value="9364-10596">40+</option>
+          </select>
+        <button id="submitLocationSearch">Search</button>
+      </form>
+
+      <h2 id="location-search-alert">All Locations</h2>
+
+      <div id="locations-near-you-map"></div>
+
+      <div id="locations-near-you"></div>
+
+      <script defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyABJG8Ux-ssKWNjmDie2_5E9d3Xi6-73RE&callback=createSearchableMap"></script>
+      <script src="createSearchableMap.js"></script>
+    </div>
+  </body>
+</html> 
