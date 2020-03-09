@@ -1,3 +1,10 @@
+$(function(){
+    var $select = $("#ages");
+    for (i=18;i<=100;i++){
+        $select.append($('<option></option>').val(i).html(i))
+    }
+});
+
 function createSearchableMap(locations = allLocations) {
   var bounds = new google.maps.LatLngBounds();
   var mapOptions = {mapTypeId: 'roadmap'};
@@ -10,8 +17,9 @@ function createSearchableMap(locations = allLocations) {
   locations.forEach(function(location) {
     markers.push([location.name, location.lat, location.lng]);
     
-    infoWindowContent.push(['<div class="infoWindow"><h3>' + location.name + 
-                            '</h3><p>City: ' + location.city + ' - Store #: ' + location.store_id + '</p></div>']);
+    infoWindowContent.push(['<div class="infoWindow"><h3>' + location.district + 
+                            '</h3><p>Stake Center: ' + location.name + ' Age Range: ' 
+                            + location.age + '</p><a href="http://www.lds-sa.org">Register Here</a></div>']);
   });	    
 
   var infoWindow = new google.maps.InfoWindow(), marker, i;
@@ -52,10 +60,10 @@ function filterLocations() {
   var userAddress = document.getElementById('userAddress').value.replace(/[^a-z0-9\s]/gi, '');
   var maxRadius = parseInt(document.getElementById('maxRadius').value, 10);
   var age_options = document.getElementById('ages');
-  var age_range = age_options.options[age_options.selectedIndex].value;
+  var age_selection = age_options.options[age_options.selectedIndex].value;
   
   if (userAddress && maxRadius) {
-    userLatLng = getLatLngViaHttpRequest(userAddress, age_range);
+    userLatLng = getLatLngViaHttpRequest(userAddress, age_selection);
   } 
 
   function getLatLngViaHttpRequest(address, age_range) {
@@ -66,19 +74,19 @@ function filterLocations() {
     var request = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addressStripped + '&key=' + key;
 
     // Age range if-then statements to set the upper and lower bounds
-    var lower_age = 0;
-    var upper_age = 0;
+    // var lower_age = 0;
+    // var upper_age = 0;
 
-    if (age_range === '6589-8050') {
-      lower_age = 6589
-      upper_age = 8050
-    } else if (age_range === '8051-9363') {
-      lower_age = 8051
-      upper_age = 9363
-    } else {
-      lower_age = 9364
-      upper_age = 10596
-    };
+    // if (age_range === '6589-8050') {
+    //   lower_age = 6589
+    //   upper_age = 8050
+    // } else if (age_range === '8051-9363') {
+    //   lower_age = 8051
+    //   upper_age = 9363
+    // } else {
+    //   lower_age = 9364
+    //   upper_age = 10596
+    // };
     
     // Call the Geocoding API using jQuery GET, passing in the request and a callback function 
     // which takes one argument "data" containing the response
@@ -97,7 +105,7 @@ function filterLocations() {
 
       // Filtered for age range selected
       for (i = 0; i < filteredRadius.length; i++) {
-        if (filteredRadius[i].store_id >= lower_age && filteredRadius[i].store_id <= upper_age) {
+        if (age_selection >= filteredRadius[i].lower && age_selection <= filteredRadius[i].upper) {
           filteredLocations.push(filteredRadius[i]);
         };
       }
@@ -105,8 +113,8 @@ function filterLocations() {
       if (filteredLocations.length > 0) {
         createSearchableMap(filteredLocations);
         createListOfLocations(filteredLocations);
-        searchResultsAlert.innerHTML = 'SA Conference Locations within ' + maxRadius + ' miles of ' + userAddress + ' for ages '
-        + lower_age + ' to ' + upper_age + ':';
+        searchResultsAlert.innerHTML = 'SA Conference Locations within ' + maxRadius + ' miles of ' + userAddress + ' for '
+        + age_selection + ' year-olds:';
       } else {
         console.log("nothing found!");
         document.getElementById('locations-near-you').innerHTML = '';
@@ -135,8 +143,8 @@ function createListOfLocations(locations) {
   
   locations.forEach( function(location) {
     var specificLocation = document.createElement('div');
-    var locationInfo = "<h4>" + location.name + "</h4>" +
-                       "<p>"  + location.city + "</p><p>" + location.store_id + "</p>";
+    var locationInfo = '<h4>' + location.district + '</h4>' +
+                       '<p>'  + location.age + '</p><a href="http://www.lds-sa.org">Register Here</a>';
     specificLocation.setAttribute("class", 'location-near-you-box');
     specificLocation.innerHTML = locationInfo;
     locationsList.appendChild(specificLocation);

@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="allLocations.js"></script>
   </head>
@@ -15,16 +16,13 @@
 
       <form action="#" method="post">
         <label for="maxRadius">Find locations within
-          <input name="maxRadius" id="maxRadius" type="number" value="10" min="1" />
+          <input name="maxRadius" id="maxRadius" type="number" value="50" min="1" />
         </label>
         <label for="userAddress"> miles of
           <input name="userAddress" id="userAddress" type="text" placeholder="Your Address" value="10777 Santa Monica Blvd, Los Angeles, CA 90025"/>
         </label>
         <label for="ages">for ages in the range: </label>
           <select id="ages">
-            <option value="6589-8050">18-25</option>
-            <option value="8051-9363">26-39</option>
-            <option value="9364-10596">40+</option>
           </select>
         <button id="submitLocationSearch">Search</button>
       </form>
@@ -37,6 +35,8 @@
 
       <script defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyABJG8Ux-ssKWNjmDie2_5E9d3Xi6-73RE&callback=createSearchableMap"></script>
       <script src="createSearchableMap.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </div>
   </body>
 </html> 
